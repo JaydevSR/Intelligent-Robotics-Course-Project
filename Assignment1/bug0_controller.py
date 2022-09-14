@@ -1,14 +1,14 @@
 """Algorithm: Bug0"""
 
 from controller import Robot, Motor, DistanceSensor
-from helper_functions import distance_between, angle_of, on_line, distance_from_line
+from helper_functions import *
 
 robot = Robot()
     
 TIME_STEP = 64
 MAX_SPEED = 6.28
 GOAL_POSITION = [0.2, 0.7, 0.0]
-POS_EPSILON = 0.05  # distance from goal when to stop
+POS_EPSILON = 0.08  # distance from goal when to stop
 OBS_PROX = 150.0
 ANGLE_EPSILON = 0.05
 
@@ -35,6 +35,9 @@ ps_values = [0 for i in range(8)]
 gps = robot.getDevice('gps')
 gps.enable(TIME_STEP)
 
+compass = robot.getDevice('compass')
+compass.enable(TIME_STEP)
+
 state = 'begin'
 
 while robot.step(TIME_STEP) != -1:
@@ -42,6 +45,7 @@ while robot.step(TIME_STEP) != -1:
     for i in range(8):
         ps_values[i] = ps[i].getValue()    
     current_position = gps.getValues()
+    current_angle = get_bearing_in_degrees(compass.getValues())
     
     # initialize motor speeds at 50% of MAX_SPEED.
     left_speed  = 0.5 * MAX_SPEED
@@ -53,9 +57,10 @@ while robot.step(TIME_STEP) != -1:
         state = 'move_to_goal'
 
     elif state == 'move_to_goal':
-        obstacle_detected = ps_values[0] > OBS_PROX or ps_values[7] > OBS_PROX
+        obstacle_detected = ps_values[0] > OBS_PROX and ps_values[7] > OBS_PROX
         if obstacle_detected:
             hit_point = gps.getValues()
+            hit_angle = get_bearing_in_degrees(compass.getValues())
             state = 'follow_obstacle'
         elif distance_between(current_position, GOAL_POSITION) <= POS_EPSILON:
             state = 'end'
@@ -79,6 +84,16 @@ while robot.step(TIME_STEP) != -1:
             
     elif state == 'follow_obstacle':
         print('following obstacle')
+        front_clear = max(ps_values[0:1]) < OBS_PROX and max(ps_values[6:7]) < OBS_PROX
+        aligned_to_goal = angle_of(current_position, GOAL_POSITION) > 0.95*current_angle
+        aligned_to_goal = aligned_to_goal and angle_of(current_position, GOAL_POSITION) < 1.05*current_angle
+        if front_clear and aligned_to_goal:
+            print('goal_visible')
+            state = 'move_to_goal'
+            left_speed  = 0.20 * MAX_SPEED
+            right_speed = 0.50 * MAX_SPEED
+            start_position = current_position
+  
         right_side_covered = ps_values[2] > OBS_PROX
         if not right_side_covered:
             left_speed  = -0.5 * MAX_SPEED
