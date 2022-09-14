@@ -6,9 +6,7 @@ def distance_between(A, B):
     return np.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
 
 def angle_of(A, B):
-    y = (A[1] - B[1])
-    x = (A[0] - B[0])
-    return math.atan2(y, x)
+    return math.degrees(math.atan2((B[1]-A[1]), (B[0]-A[0])) % 360) + 90 
     
 def distance_from_line(x, A, B):
     length_AB = distance_between(A, B)
@@ -22,3 +20,13 @@ def on_line(x, A, B, tolerance=0.02):
         return False
     else:
         return True
+        
+def get_bearing_in_degrees(north):
+    rad = math.atan2(north[0], north[1])
+    bearing = (rad - 1.5708) / 3.14 * 180.0
+    bearing += 180
+    if (bearing < 0.0):
+        bearing = bearing + 360.0
+    
+    return bearing
+    
