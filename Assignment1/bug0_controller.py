@@ -124,8 +124,8 @@ while robot.step(TIME_STEP) != -1:
                 
     elif state == 'end':
         print('Robot staus: goal reached')
-        left_speed  = 0.0
-        right_speed = 0.0
+        left_motor.setVelocity(0)
+        right_motor.setVelocity(0)
         break
         
     left_motor.setVelocity(left_speed)
