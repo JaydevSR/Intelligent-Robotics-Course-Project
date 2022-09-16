@@ -4,10 +4,11 @@ from controller import Robot, Motor, DistanceSensor
 from helper_functions import *
 
 robot = Robot()
-    
+
+# Constants    
 TIME_STEP = 64
 MAX_SPEED = 6.28
-GOAL_POSITION = [0.2, 0.7, 0.0]
+GOAL_POSITION = [0.45, 0.6, 0.0]
 POS_EPSILON = 0.08  # distance from goal when to stop
 OBS_PROX = 150.0
 ANGLE_EPSILON = 0.05
@@ -54,7 +55,16 @@ while robot.step(TIME_STEP) != -1:
     # at time begin
     if state == 'begin':
         start_position = gps.getValues()
-        state = 'move_to_goal'
+        aligned_to_goal = angle_of(current_position, GOAL_POSITION) > 0.95*current_angle
+        aligned_to_goal = aligned_to_goal and angle_of(current_position, GOAL_POSITION) < 1.05*current_angle
+        
+        if not aligned_to_goal:
+            print('Robot staus: aligning to the goal')
+            left_speed  = -0.50 * MAX_SPEED
+            right_speed = 0.50 * MAX_SPEED
+            state = 'begin'
+        else:
+            state = 'move_to_goal'
 
     elif state == 'move_to_goal':
         obstacle_detected = ps_values[0] > OBS_PROX and ps_values[7] > OBS_PROX
@@ -66,33 +76,34 @@ while robot.step(TIME_STEP) != -1:
             state = 'end'
         elif not on_line(current_position, start_position, GOAL_POSITION):
             # move back on line
-            heading_angle = angle_of(start_position, current_position)
+            heading_angle = current_angle
             goal_angle = angle_of(start_position, GOAL_POSITION)
             
             if (heading_angle - goal_angle) > ANGLE_EPSILON:
-                print('turning right')
+                print('Robot staus: aligning to the goal')
                 left_speed  = 0.5 * MAX_SPEED
                 right_speed = 0.1 * MAX_SPEED
             elif (heading_angle - goal_angle) < -ANGLE_EPSILON:
-                print('turning left')
+                print('Robot staus: aligning to the goal')
                 left_speed  = 0.1 * MAX_SPEED
                 right_speed = 0.5 * MAX_SPEED
         else:
-            print('on line')
+            print('Robot staus: moving to goal')
             left_motor.setVelocity(left_speed)
             right_motor.setVelocity(right_speed)
             
     elif state == 'follow_obstacle':
-        print('following obstacle')
+        print('Robot staus: following obstacle boundary')
         front_clear = max(ps_values[0:1]) < OBS_PROX and max(ps_values[6:7]) < OBS_PROX
         aligned_to_goal = angle_of(current_position, GOAL_POSITION) > 0.95*current_angle
         aligned_to_goal = aligned_to_goal and angle_of(current_position, GOAL_POSITION) < 1.05*current_angle
         if front_clear and aligned_to_goal:
-            print('goal_visible')
+            print('Robot staus: goal reachable')
             state = 'move_to_goal'
             left_speed  = 0.20 * MAX_SPEED
             right_speed = 0.50 * MAX_SPEED
             start_position = current_position
+            continue
   
         right_side_covered = ps_values[2] > OBS_PROX
         if not right_side_covered:
@@ -112,9 +123,9 @@ while robot.step(TIME_STEP) != -1:
                 right_speed = 0.50 * MAX_SPEED
                 
     elif state == 'end':
-        print('reached end')
-        left_motor.setVelocity(0.0)
-        right_motor.setVelocity(0.0)
+        print('Robot staus: goal reached')
+        left_speed  = 0.0
+        right_speed = 0.0
         break
         
     left_motor.setVelocity(left_speed)
