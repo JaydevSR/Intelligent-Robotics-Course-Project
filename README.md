@@ -1,6 +1,6 @@
 # ECS418: Intelligent-Robotics (Summer Semester-2022)
 
-### Group Members:
+### Contributors:
   1. Jaydev Rao Singh
   2. Akanksha Singh
   3. Yashika Patil
