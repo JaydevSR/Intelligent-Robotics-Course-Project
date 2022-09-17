@@ -17,7 +17,9 @@ _Scenario where goal never reachable_:
 
 ## Task 3: Flowchart for right-turning Bug-0 algorithm
 
-TODO: Insert image
+<div align="center">
+  <image src="images/bug0_right_turning.svg"></image>
+</div>
 
 ## Task 4: Proof for incompleteness of Bug-0 algorithm
 
