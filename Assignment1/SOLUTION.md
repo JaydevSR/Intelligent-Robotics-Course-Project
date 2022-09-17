@@ -10,7 +10,10 @@ Controller implemented in: [`Assignment1/bug0_controller.py`](https://github.com
 
 _Scenario where goal never reachable_:
 
-TODO: Insert images
+1. Start: ![Start](images/bug0_start.png) 
+2. Following the obstacle: ![Hit point 1](images/bug0_hit1.png)
+3. Leaving the obstacle: ![Leave point 1](images/bug0_leave1.png)
+4. Following the obstacle again: ![Hit point 2](images/bug0_hit2.png)
 
 ## Task 3: Flowchart for right-turning Bug-0 algorithm
 
