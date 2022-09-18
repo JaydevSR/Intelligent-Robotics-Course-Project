@@ -75,11 +75,15 @@ _Scenario with 4 rectangular obstacles_:
 
 ## Task 7: Trapezoidal decomposition and Reeb graph for above environment
 
-TODO: Insert images
+<div align="center">
+  <image src="images/Trapazoidal_decomposition_and_Reeb_graph.svg"></image>
+</div>
 
 ## Task 8: Lawn-mower pattern with sensing radius equal to the size of the robot
 
-TODO: Insert Images
+<div align="center">
+  <image src="images/lown_mower_pattern.svg"></image>
+</div>
 
 ## Task 9: Pursuit-Evasion game
 
