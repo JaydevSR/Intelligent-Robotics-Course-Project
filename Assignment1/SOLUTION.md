@@ -80,6 +80,8 @@ _Scenario with 4 rectangular obstacles_:
 
 ## Task 7: Trapezoidal decomposition and Reeb graph for above environment
 
+Code for trapazoidal decomposition implemented in: [`Assignment1/trapazoidal_decomposition.py`](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/d2ba49b841cdb9dadfb27f41c12d1b8595807f5a/Assignment1/trapazoidal_decomposition.py)
+
 <div align="center">
   <image src="images/Trapazoidal_decomposition_and_Reeb_graph.svg"></image>
 </div>
