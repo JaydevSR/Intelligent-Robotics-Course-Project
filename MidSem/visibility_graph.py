@@ -6,7 +6,6 @@ def visibility_graph(start, goal, polygons):
     for p in polygons:
         points.extend(p.vertices)
     points = list(set(points)) # remove duplicates
-    print(points)
     points.sort(key=lambda v: v.args[0]) # sort by x
 
     edges = []
