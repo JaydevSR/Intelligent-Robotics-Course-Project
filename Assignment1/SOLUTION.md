@@ -1,10 +1,5 @@
 # Solutions
 
-> Contributors:
->  1. Jaydev Rao Singh ([@JaydevSR](https://github.com/JaydevSR/))
->  2. Akanksha Singh ([@akankshasingh25](https://github.com/akankshasingh25/))
->  3. Yashika Patil ([@yashikapatil27](https://github.com/yashikapatil27/))
-
 ## Task 1: Functions for coordinate geometry
 
 Code implemented in: [`Assignment1/helper_functions.py`](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/57092d7d8754d7f8c299b8b0639238a2deb6cd29/Assignment1/helper_functions.py)
