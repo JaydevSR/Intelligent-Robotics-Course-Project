@@ -49,6 +49,10 @@ The code for finding shortest path using Dijkstra's Algorithm is implemented in 
 One particular environment with two rectangular obstacle is shown below:
 ![Visibility graph, shortest path, bug 0 path](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/main/MidSem/plots/visibility_graph.png?raw=true)
 
+The Bug 0 path will be always longer than visibility graph or equal to it. To see this consider the following cases:
+1. Goal is not blocked by any obstacle: The shortest path from visibility graph and Bug 0 path will be same, that is, straight line from start to goal.
+2. Atleast one obstacle lies between start and goal: The shortest path from the visibility graph will contain just the vertex of the blocking polygon. Whereas the Bug 0 path will contain a part of the boundary. Because of this the Bug 0 path is bound to be longer than or equal to the shortest path from visibility graph.
+
 ## Problem 4: Potential Field Path Planning
 
 The path planner using potential fields is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/3ae113f2ade5dfe4b99340675fe9c7235e4be471/MidSem/potential_field.py#L5-L46
