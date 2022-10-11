@@ -53,3 +53,35 @@ def dijkstra(start, goal, adj_list, weights):
         u = prev[u]
     path.reverse()
     return path
+
+
+def a_star(start, goal, adj_list, weights):
+    # initialize
+    dist = {}
+    prev = {}
+    for v in adj_list:
+        dist[v] = float('inf')
+        prev[v] = None
+    dist[start] = 0
+
+    # main loop
+    Q = set(adj_list.keys())
+    while Q:
+        u = min(Q, key=lambda v: dist[v] + v.distance(goal))
+        Q.remove(u)
+        if u == goal:
+            break
+        for v in adj_list[u]:
+            alt = dist[u] + weights[u][adj_list[u].index(v)]
+            if alt < dist[v]:
+                dist[v] = alt
+                prev[v] = u
+
+    # reconstruct path
+    path = []
+    u = goal
+    while u:
+        path.append(u)
+        u = prev[u]
+    path.reverse()
+    return path
