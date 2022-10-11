@@ -1,6 +1,8 @@
 from sympy import Point2D, Circle, Line, Polygon, N
 import numpy as np
 import matplotlib.pyplot as plt
+from visibility_graph import visibility_graph
+from shortest_path import *
 
 def potential_field_planner(start, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain, step_size, eps):
     path = [start]
@@ -60,12 +62,22 @@ if __name__ == "__main__":
                 Circle(Point2D(3, 8), 1),
                 Circle(Point2D(2, 3), 0.5),
                 Circle(Point2D(5, 2), 1)]
-    obstacle_threshods = [2, 2, 2, 2]
+    obstacle_threshods = [3, 3, 3, 3]
+
+    # bounding squares of obstacles
+    bounding_squares = []
+    for obstacle in obstacles:
+        bounding_squares.append(Polygon(
+            Point2D(obstacle.center.x - obstacle.radius, obstacle.center.y - obstacle.radius),
+            Point2D(obstacle.center.x + obstacle.radius, obstacle.center.y - obstacle.radius),
+            Point2D(obstacle.center.x + obstacle.radius, obstacle.center.y + obstacle.radius),
+            Point2D(obstacle.center.x - obstacle.radius, obstacle.center.y + obstacle.radius)
+        ))
 
     # paramerters
     repulsive_gain = -1
-    attractive_gain = 2
-    step_size = 0.05
+    attractive_gain = 3
+    step_size = 0.02
     eps = 0.01
     
     path_len, path = potential_field_planner(start, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain, step_size, eps)
@@ -73,7 +85,7 @@ if __name__ == "__main__":
     print("Path length: ", path_len)
 
     # visualize
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 10))
     ax.set_aspect('equal')
     ax.set_xlim(-1, 11)
     ax.set_ylim(-1, 11)
@@ -93,3 +105,28 @@ if __name__ == "__main__":
     plt.savefig('MidSem/plots/potential_field_scenario.png')
     plt.show()
 
+    # generate visibility graph and shortest path
+    visgraph = visibility_graph(start, goal, bounding_squares)
+    adj_list, weights = get_adjacency_list(visgraph)
+    shortest_path = dijkstra(start, goal, adj_list, weights)
+    shortest_path_len = path_length(shortest_path)
+
+    # visualize visibility graph
+    fig, ax = plt.subplots(figsize=(10, 10))
+    ax.set_aspect('equal')
+    ax.set_xlim(-1, 11)
+    ax.set_ylim(-1, 11)
+    # plot bounding squares
+    for square in bounding_squares:
+        ax.add_artist(plt.Polygon([[v.x, v.y] for v in square.vertices], color='b'))
+    # plot visibility graph
+    for edge in visgraph:
+        ax.plot([edge[0].x, edge[1].x], [edge[0].y, edge[1].y], 'b')
+    # plot shortest path
+    ax.plot([p[0] for p in shortest_path], [p[1] for p in shortest_path], 'y', label='shortest path')
+    ax.plot(goal.x, goal.y, 'go', label='Goal')
+    ax.plot(start[0], start[1], 'ro', label='Start')
+    ax.legend()
+    ax.set_title("Visibility Graph for the environment: Shortest Path Length = " + str(shortest_path_len))
+    # save figure
+    plt.savefig('MidSem/plots/potential_field_scenario_visgraph.png')
