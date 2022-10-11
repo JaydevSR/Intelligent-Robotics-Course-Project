@@ -1,6 +1,6 @@
 # Solutions
 
-## Time taken for coverage in trapezoidal decomposition
+## Problem 1: Time taken for coverage in trapezoidal decomposition
 Given $\mathcal{S}$ be the total space including obstacles, we have the obstacles given by $\mathcal{O_i} \subset \mathcal{S}$ for $i = 1, 2, \dots, M$. Now, we define the set of traversable points as $\mathcal{T}$ which is the part of $\mathcal{S}$ that is disjoint from all the obstacles $O_i$. From this we generate a decomposition of $\mathcal T$ into trapazoids as follows:
 
 $$\mathcal T = \bigcup_{i=1}^N T_i$$
@@ -20,7 +20,7 @@ $$C_\mathcal{T} = \tau(T^{(1)}, s_1, e_1) + \omega(e_1, s_2) + \tau(T^{(2)}, s_2
 $$\implies C_\mathcal{T} = \sum_{i=1}^r \tau(T^{(i)}, s_i, e_i) + \sum_{i=1}^{r-1} \omega(e_i, s_{i+1})$$
 
 
-## Optimization of coverage time
+## Problem 2: Optimization of coverage time
 
 From the previous part we have the expression for coverage time $C_\mathcal{T}$ whose value we want to minimize. For this we note that the coverage time can be lower bounded by the time:
 
@@ -37,3 +37,31 @@ With constraint to ensure that every cell is covered once:
 $$\exists k \in \{1, \dots, N\}:\ s_i \in T_k \iff e_i \in T_k$$
 
 $$s_i \in T_k \implies s_j \notin T_k \hspace{1em} \text{if } i \ne j$$
+
+## Problem 3: ...
+
+## Probelm 4: Potential Field Path Planning
+
+The path planner using potential fields is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/3ae113f2ade5dfe4b99340675fe9c7235e4be471/MidSem/potential_field.py#L5-L46. Given below is the scenario with four circular obstacles. The parameters used for this were:
+
+* Repulsive gain for obstacles = -1
+* Attractive gain for goal = 2
+* Step size for gradient descent = 0.05
+
+![Path Planning Scenario](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/main/MidSem/plots/potential_field_scenario.png?raw=true)
+
+### Bonus
+
+TODO
+
+## Problem 5: Pursuit Evasion with two pursuers
+
+Dropped
+
+## Problem 6: Preventing pursuer collisions in multi-pursuer games
+
+TODO
+
+## Problem 7: A* Algorithm
+
+The A* algorithm for finding the shortest path is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/3ae113f2ade5dfe4b99340675fe9c7235e4be471/MidSem/shortest_path.py#L58-L87
