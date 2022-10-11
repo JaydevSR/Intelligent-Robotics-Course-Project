@@ -41,11 +41,19 @@ With constraints to ensure that every cell is covered once:
 
 The first constraint imposes that $s_i$ and $e_i$ lie in the same cell and the second constraint imposes that each pair of $(s_i, e_i)$ lies in a unique cell. As total such pairs is $N$ so we have one pair for each cell. If the functional forms of $\tau$ and $\omega$ are known then we can solve this problem using these constraints. Otherwise we can use some greedy or heuristic approaches.
 
-## Problem 3: ...
+## Problem 3: Visibility graph and Shortest path
+The code for generating visibility graph is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/35878af00e7c28b84558d0edde803187e0a016a3/MidSem/visibility_graph.py#L6-L42
 
-## Probelm 4: Potential Field Path Planning
+The code for finding shortest path using Dijkstra's Algorithm is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/35878af00e7c28b84558d0edde803187e0a016a3/MidSem/visibility_graph.py#L6-L42
 
-The path planner using potential fields is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/3ae113f2ade5dfe4b99340675fe9c7235e4be471/MidSem/potential_field.py#L5-L46. Given below is the scenario with four circular obstacles. The parameters used for this were:
+One particular environment with two rectangular obstacle is shown below:
+![Visibility graph, shortest path, bug 0 path](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/main/MidSem/plots/visibility_graph.png?raw=true)
+
+## Problem 4: Potential Field Path Planning
+
+The path planner using potential fields is implemented in https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/3ae113f2ade5dfe4b99340675fe9c7235e4be471/MidSem/potential_field.py#L5-L46
+
+Given below is the scenario with four circular obstacles. The parameters used for this were:
 
 * Repulsive gain for obstacles = -1
 * Attractive gain for goal = 2
