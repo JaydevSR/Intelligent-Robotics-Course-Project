@@ -4,14 +4,16 @@ import matplotlib.pyplot as plt
 
 def potential_field_planner(start, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain, step_size, eps):
     path = [start]
+    path_len = 0
     position = start
     forces = get_forces(position, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain)
     while forces[0] > eps and forces[1] > eps:
         position = gradient_descent_step(position, forces, step_size)
+        path_len += float(position.distance(path[-1]))
         path.append(position)
         forces = get_forces(position, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain)
         print(float(position.x), float(position.y))
-    return path
+    return path_len, path
 
 def gradient_descent_step(position, forces, step_size):
     new_position = [0, 0]
@@ -63,26 +65,31 @@ if __name__ == "__main__":
     # paramerters
     repulsive_gain = -1
     attractive_gain = 2
-    step_size = 0.02
+    step_size = 0.05
     eps = 0.01
     
-    path = potential_field_planner(start, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain, step_size, eps)
+    path_len, path = potential_field_planner(start, goal, obstacles, goal_threshold, obstacle_threshods, repulsive_gain, attractive_gain, step_size, eps)
     
-    print("Path length: ", path_length(path))
+    print("Path length: ", path_len)
 
     # visualize
     fig, ax = plt.subplots()
     ax.set_aspect('equal')
     ax.set_xlim(-1, 11)
     ax.set_ylim(-1, 11)
-    ax.plot([p[0] for p in path], [p[1] for p in path], 'r')
+    ax.plot([p[0] for p in path], [p[1] for p in path], 'y', label='path')
     # plot obstacles
     for obstacle in obstacles:
         if type(obstacle) is Circle:
             ax.add_artist(plt.Circle((obstacle.center.x, obstacle.center.y), obstacle.radius, color='b'))
         else:
             ax.add_artist(plt.Polygon([[v.x, v.y] for v in obstacle.vertices], color='b'))
-    ax.plot(goal.x, goal.y, 'go')
-    ax.plot(start[0], start[1], 'ro')
+    ax.plot(goal.x, goal.y, 'go', label='Goal')
+    ax.plot(start[0], start[1], 'ro', label='Start')
+    ax.plot([], [], 'bo', label='Obstacle')
+    ax.legend()
+    ax.set_title("Potential Field Path Planning: Path Length = " + str(path_len))
+    # save figure
+    plt.savefig('MidSem/plots/potential_field_scenario.png')
     plt.show()
 
