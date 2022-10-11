@@ -58,9 +58,13 @@ TODO
 
 Dropped
 
-## Problem 6: Preventing pursuer collisions in multi-pursuer games
+## Problem 6: Preventing pursuer collisions in pursuit-evasion games
 
-TODO
+In a simple pursuit evasion game with single pursuer and single evader, the pursuer searches the contaminated spaces in the environment in search of the evader, but when the number of pursuers increases, we have to use a different strategy to avoid pursuers colliding in search of the evader in a single contaminated region. For this we can use the following strategy:
+* For all the contaminated regions, it will be searched by a pursuer that is closest to it (closeness can be determined using some distance measure). We call such pursuers *moving pursuers*.
+* If the number of contaminated regions is smaller than the number of pursuers, only some of them will be searching the space. The other pursuers will hold their position in order to not perturb the environment unnecessarily. Such pursuers are called *static pursuers*.
+
+So, using this stratedy of *moving* and *static* pursuers we prevent collisions.
 
 ## Problem 7: A* Algorithm
 
