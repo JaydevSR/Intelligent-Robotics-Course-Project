@@ -19,6 +19,8 @@ $$C_\mathcal{T} = \tau(T^{(1)}, s_1, e_1) + \omega(e_1, s_2) + \tau(T^{(2)}, s_2
 
 $$\implies C_\mathcal{T} = \sum_{i=1}^r \tau(T^{(i)}, s_i, e_i) + \sum_{i=1}^{r-1} \omega(e_i, s_{i+1})$$
 
+Here, the input to the algorithm planning the coverage will be $(T^{(1)}, s_1)$ that is the start of the coverage path.
+
 
 ## Problem 2: Optimization of coverage time
 
@@ -26,17 +28,18 @@ From the previous part we have the expression for coverage time $C_\mathcal{T}$ 
 
 $$C_L = \sum_{i=1}^N \tau(T_i, s_i, e_i)$$
 
-Here, $s_i$ and $e_i$ are some points in $T_i$. Now in order to optimize the coverage, we fix $r=N$ and search for points $s_1, \dots, s_N$ and $e_1, \dots, e_N$ such that $C_\mathcal{T}$ is minimum. This can be framed as a optimization problem as:
+Here, $s_i$ and $e_i$ are some points in $T_i$. Now in order to optimize the coverage, we fix $r=N$ as we only want to cover each cell once, and search for points $s_2, \dots, s_N$ and $e_1, \dots, e_N$ such that $C_\mathcal{T}$ is minimum. The input is again the start point given by $s_1$. This can be framed as a optimization problem as:
 
-$$\frac{\partial C_\mathcal{T}}{\partial s_i} = 0 \hspace{1em} \text{where } s_i \in \mathcal{T}$$
+$$\frac{\partial C_\mathcal{T}}{\partial s_i} = 0 \hspace{1em} \text{where } s_i \in \mathcal{T} \hspace{1em} (i > 1)$$
 
-$$\frac{\partial C_\mathcal{T}}{\partial e_i} = 0 \hspace{1em} \text{where } e_i \in \mathcal{T}$$
+$$\frac{\partial C_\mathcal{T}}{\partial e_i} = 0 \hspace{1em} \text{where } e_i \in \mathcal{T} \hspace{1em} (i \ge 1)$$
 
-With constraint to ensure that every cell is covered once:
+With constraints to ensure that every cell is covered once:
+1. $\exists k \in \{1, \dots, N\}:\ s_i \in T_k \iff e_i \in T_k$
 
-$$\exists k \in \{1, \dots, N\}:\ s_i \in T_k \iff e_i \in T_k$$
+2. $\forall i,j :\ s_i \in T_k \implies s_j \notin T_k \hspace{1em} \text{if } i \ne j$
 
-$$s_i \in T_k \implies s_j \notin T_k \hspace{1em} \text{if } i \ne j$$
+The first constraint imposes that $s_i$ and $e_i$ lie in the same cell and the second constraint imposes that each pair of $(s_i, e_i)$ lies in a unique cell. As total such pairs is $N$ so we have one pair for each cell. If the functional forms of $\tau$ and $\omega$ are known then we can solve this problem using these constraints. Otherwise we can use some greedy or heuristic approaches.
 
 ## Problem 3: ...
 
