@@ -89,6 +89,6 @@ Code for trapazoidal decomposition implemented in: [`Assignment1/trapazoidal_dec
 
 ## Task 9: Pursuit-Evasion game
 
-TODO: Implementation of controller
+Dropped
 
 ---
