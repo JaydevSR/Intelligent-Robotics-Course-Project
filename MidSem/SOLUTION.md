@@ -65,9 +65,13 @@ Given below is the scenario with four circular obstacles. The parameters used fo
 
 ![Path Planning Scenario](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/main/MidSem/plots/potential_field_scenario.png?raw=true)
 
-### Bonus
+# Bonus
 
-TODO
+The visibility graph of the same environment (with circular obstacle converted to squares) is given below:
+
+![Vis graph for above enviroment](https://github.com/JaydevSR/Intelligent-Robotics-Course-Project/blob/main/MidSem/plots/potential_field_scenario_visgraph.png?raw=true)
+
+The length of the paths in both cases turns out to be almost same.
 
 ## Problem 5: Pursuit Evasion with two pursuers
 
