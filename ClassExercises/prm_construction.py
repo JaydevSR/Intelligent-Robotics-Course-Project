@@ -4,13 +4,7 @@ import matplotlib.pyplot as plt
 
 def prm_construction(start, goal, obstacles, arena_corner1, arena_corner2, num_nodes, n_q):
     """
-    :param start: start point
-    :param goal: goal point
-    :param obstacles: list of obstacles (rectangular)
-    :param arena: arena rectangle
-    :param num_nodes: number of nodes in graph
-    :param n_q: number of nearest neighbours
-    :return: list of nodes and list of edges
+    Construct a probabilistic roadmap (PRM) for a given start and goal configuration.
     """
 
     # Adjacency list representation of graph as a dictionary
@@ -91,7 +85,7 @@ if __name__ == "__main__":
     arena_corner1 = Point(0, 0)
     arena_corner2 = Point(10, 10)
 
-    graph, weights = prm_construction(start, goal, obstacles, arena_corner1, arena_corner2, 50, 3)
+    graph, weights = prm_construction(start, goal, obstacles, arena_corner1, arena_corner2, 30, 3)
 
     # plot the graph
     # plot polygons
