@@ -51,6 +51,8 @@ def particle_swarm_optimization(source, goal, env_side,
     global_best_history.append(global_best_cost)
 
     for t in range(n_iterations):
+        local_best_cost = np.Inf
+        local_best_path = None
         print(f"Iteration: {t}")
         # Update positions
         for i in range(n_particles):
@@ -65,12 +67,6 @@ def particle_swarm_optimization(source, goal, env_side,
             particle_velocities[i] = velocity_weight * particle_velocities[i] + \
                 local_gain * np.random.rand() * (local_best_path - particle_paths[i]) + \
                 global_gain * np.random.rand() * (global_best_path - particle_paths[i])
-
-        # Update local best
-        for i in range(n_particles):
-            if particle_costs[i] < local_best_cost:
-                local_best_cost = particle_costs[i]
-                local_best_path = particle_paths[i]
 
         # Update global best
         if local_best_cost < global_best_cost:
