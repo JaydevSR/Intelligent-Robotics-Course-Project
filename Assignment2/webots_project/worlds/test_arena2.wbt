@@ -1,0 +1,110 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 0.000763155037783319 8.995236073168978e-06 48.251733933511126
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 20 20
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+  wallThickness 0.1
+  wallHeight 0.5
+}
+Robot {
+  name "supervisor"
+  controller "supervisor_controller"
+  supervisor TRUE
+}
+DEF BALL_B Ball {
+  translation -2 8 0.499914
+  rotation 0.9990597932123146 0.04315728165287193 0.004120512941596983 0.18449202858017222
+  name "ball(1)"
+  radius 0.5
+}
+DEF BALL_A Ball {
+  translation 7 -2 0.5
+  rotation 0.9990597932123146 0.04315728165287193 0.004120512941596983 0.18449202858017222
+  radius 0.5
+}
+DEF BALL_C Ball {
+  translation -8 3 0.5
+  rotation 0.9990597932123146 0.04315728165287193 0.004120512941596983 0.18449202858017222
+  name "ball(2)"
+  radius 0.5
+}
+Pioneer3dx {
+  translation -7 -7 0.0947835
+  controller "toilet_finder"
+  extensionSlot [
+    GPS {
+    }
+    Compass {
+    }
+    SharpGP2Y0A710K0F {
+      translation 0.053659 0.17634 0.158
+      rotation 0 0 -1 -1.0472053071795866
+      name "sense_left"
+    }
+    SharpGP2Y0A710K0F {
+      translation 0.0945947 -0.149296 0.154
+      rotation 0 0 -1 1.0472
+      name "sense_right"
+    }
+    SharpGP2Y0A710K0F {
+      translation 0.16 0.019998 0.154
+      rotation 0 0 1 -5.307179586466759e-06
+      name "sense_front"
+    }
+  ]
+}
+OilBarrel {
+  translation -3.85 0 0.44
+  radius 0.5
+}
+OilBarrel {
+  translation -1.74 4.75 0.44
+  name "oil barrel(9)"
+  radius 0.5
+}
+OilBarrel {
+  translation 1.31 0.67 0.44
+  name "oil barrel(7)"
+  radius 0.5
+}
+OilBarrel {
+  translation -5.88 -3.33 0.44
+  name "oil barrel(3)"
+  radius 0.5
+}
+OilBarrel {
+  translation 5.62 1.43 0.44
+  name "oil barrel(5)"
+  radius 0.5
+}
+OilBarrel {
+  translation 4.15 -4.64 0.44
+  name "oil barrel(1)"
+  radius 0.5
+}
+OilBarrel {
+  translation 0 -3.29 0.44
+  name "oil barrel(2)"
+  radius 0.5
+}
+OilBarrel {
+  translation 2.06 5.48 0.44
+  name "oil barrel(4)"
+  radius 0.5
+}
+YoubotFlag {
+  translation 7 7 0
+  rotation 0 0 1 0.785398
+  name "goal"
+}

@@ -1,0 +1,31 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.3741430353234373 0.42196849340801806 0.8258084400694466 1.641844021569776
+  position 1.2949086614169165 -7.791222364890818 10.656994215002072
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 5 5
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+  wallThickness 0.1
+  wallHeight 0.5
+}
+E-puck {
+  translation -1 -1 0
+  controller "toilet_finder"
+  turretSlot [
+    Compass {
+    }
+    GPS {
+    }
+  ]
+}
+OilBarrel {
+}
