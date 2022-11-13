@@ -41,7 +41,7 @@ DEF BALL_C Ball {
 }
 Pioneer3dx {
   translation -7 -7 0.0947835
-  controller "toilet_finder"
+  controller "robot_controller"
   extensionSlot [
     GPS {
     }
